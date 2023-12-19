@@ -120,6 +120,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                   onChange={(e) => handleImage(e, field.onChange)} 
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -139,6 +140,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                   {...field} 
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -158,6 +160,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                   {...field} 
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -176,6 +179,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                   {...field} 
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -185,6 +189,6 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
     )
   }
 
-export default AccountProfile
+export default AccountProfile;
 
 
