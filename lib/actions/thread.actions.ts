@@ -14,9 +14,11 @@ interface Params {
 
 export async function createThread({ text, author, communityId, path}: Params) {
     try {
-        connectToDB();
+        await connectToDB();
 
-        const createThread = await Thread.create({
+        console.log({text, author, path});
+
+        const createdThread = await Thread.create({
             text,
             author,
             community: null,
@@ -24,7 +26,7 @@ export async function createThread({ text, author, communityId, path}: Params) {
 
         //Update user model
         await User.findOneAndUpdate(author, {
-            $push: { threads: createThread._id }
+            $push: { threads: createdThread._id }
         })
 
         revalidatePath(path);
@@ -34,7 +36,7 @@ export async function createThread({ text, author, communityId, path}: Params) {
 }
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
-    connectToDB();
+    await connectToDB();
 
     //calculate the number of posts to skip
     const skipAmount = (pageNumber - 1) * pageSize;
@@ -54,9 +56,9 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
             }
         })
 
-        const totalPostCount = await Thread.countDocuments({ parentId: { $in: [null, undefined]}})
+        // const totalPostCount = await Thread.countDocuments({ parentId: { $in: [null, undefined]}})
         const posts = await postQuery.exec();
-        const isNext = totalPostCount > skipAmount + posts.length;
+        // const isNext = totalPostCount > skipAmount + posts.length;
 
-        return { posts, isNext }
+        return { posts }
 }

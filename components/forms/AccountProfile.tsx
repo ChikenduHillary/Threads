@@ -84,21 +84,21 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
       values.profile_photo = imgRes[0].url;
     }
   }
-}
 
-await updateUser({
-  userId : user.id,
-  username: values.username,
-  name: values.name,
-  bio: values.bio,
-  image: values.profile_photo,
-  path: pathname
-})
-
-if (pathname === '/profile/edit') {
-  router.back();
-} else {
-  router.push('/');
+  await updateUser({
+    userId : user.id,
+    username: values.username,
+    name: values.name,
+    bio: values.bio,
+    image: values.profile_photo,
+    path: pathname
+  })
+  
+  if (pathname === '/profile/edit') {
+    router.back();
+  } else {
+    router.push('/');
+  }
 }
   
   return (
