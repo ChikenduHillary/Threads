@@ -6,8 +6,8 @@ async function Page() {
   const user = await currentUser();
   const userInfo = {};
   const userData = {
-    id: user?.id,
-    objectId: JSON.stringify(userInfo?._id),
+    id: user?.id || '',
+    objectId: JSON.stringify(userInfo?._id) || '',
     username: userInfo?.username || user?.username,
     name: userInfo?.name || user?.firstName || '',
     bio: userInfo?.bio || "",

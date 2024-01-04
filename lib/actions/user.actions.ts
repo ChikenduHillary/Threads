@@ -35,7 +35,7 @@ export async function updateUser({
                 onboarded: true,
             },
             { upsert: true }
-        );
+        ).maxTimeMS(30000);
 
         if(path === '/profile/edit'){
             revalidatePath(path);
@@ -61,7 +61,7 @@ export async function fetchUserPosts(userId: string) {
         await connectToDB();
 
         //Find all threads authorized by user withh the given userId
-        const threads = await User.findOne({ id: userId })
+        const threads = await User.findOne({ id: userId }).maxTimeMS(30000)
             .populate({
                 path: 'threads',
                 model: Thread,
@@ -115,7 +115,7 @@ export async function fetchUsers({
 
         const sortOptions = { createdAt: sortBy };
 
-        const usersQuery = User.find(query)
+        const usersQuery = User.find(query).maxTimeMS(30000)
             .sort(sortOptions)
             .skip(skipAmount)
             .limit(pageSize);
@@ -137,7 +137,7 @@ export async function getActivity(userId: string) {
         connectToDB();
         
         //find all threads created by the user
-        const userThreads = await Thread.find({ author: userId });
+        const userThreads = await Thread.find({ author: userId }).maxTimeMS(30000);
 
         //Collect all the child thread ids (replies) from the children field
         const childrenThreadIds = userThreads.reduce((acc, userThread) => {
@@ -151,7 +151,7 @@ export async function getActivity(userId: string) {
             path: 'author',
             model: User,
             select: 'name image _id'
-        })
+        }).maxTimeMS(30000)
 
         return replies;
     } catch (error: any) {
