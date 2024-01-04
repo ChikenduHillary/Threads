@@ -1,7 +1,6 @@
 "use server"
 import { FilterQuery, SortOrder } from 'mongoose';
 import { revalidatePath } from 'next/cache';
-import { NumberLiteralType } from 'typescript';
 
 import Thread from '../models/thread.model';
 import User from "../models/user.model";
@@ -50,7 +49,7 @@ export async function fetchUser(userId: String){
     try {
         await connectToDB();
 
-        return await User.findOne({ id: userId })
+        return await User.findOne({ id: userId }).maxTimeMS(30000)
     } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`)
     }

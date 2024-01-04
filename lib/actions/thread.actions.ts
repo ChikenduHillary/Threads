@@ -42,7 +42,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
     const skipAmount = (pageNumber - 1) * pageSize;
 
     //fetch the posts that have no parents (top-level threads...)
-    const postQuery = Thread.find({ parentId: { $in: [null, undefined]}})
+    const postQuery = Thread.find({ parentId: { $in: [null, undefined]}}).maxTimeMS(30000)
         .sort({ createdAt: 'desc'})
         .skip(skipAmount)
         .limit(pageSize)
@@ -69,7 +69,7 @@ export async function fetchThreadById(id: string){
     try {
        
         //TODO Populate Community
-        const thread = await Thread.findById(id)
+        const thread = await Thread.findById(id).maxTimeMS(30000)
             .populate({
                 path: 'author',
                 model: User,
@@ -111,7 +111,7 @@ export async function addCommentToThread(
 
     try {
         //Find the original thread by its ID
-        const originalThread = await Thread.findById(threadId);
+        const originalThread = await Thread.findById(threadId).maxTimeMS(30000);
         
         if(!originalThread){
             throw new Error("Thread not found")

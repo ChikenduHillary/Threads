@@ -60,7 +60,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
                 alt='Profile image'
                 width={48}
                 height={48}
-                className="roundedd-full object-cover"
+                className="rounded-full object-cover"
               />
             </FormLabel>
             <FormControl className='no-focus border border-dark-4 bg-dark-3 text-light-1'>
