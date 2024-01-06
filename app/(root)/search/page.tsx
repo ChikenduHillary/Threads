@@ -20,8 +20,6 @@ const Page = async () => {
         sortBy: 'desc'
     });
 
-    console.log({user, result})
-
   return (
     <section>
       <h1 className="head-text mb-10">Search</h1>
