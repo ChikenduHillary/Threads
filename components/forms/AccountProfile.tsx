@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -81,7 +80,9 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
     const imgRes = await startUpload(files);
 
     if (imgRes && imgRes[0].url) {
+      console.log(imgRes);
       values.profile_photo = imgRes[0].url;
+      console.log(values.profile_photo);
     }
   }
 
@@ -124,7 +125,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                       alt='profile photo'
                       width={24}
                       height={24}
-                      className='object-contain rounded-full'
+                      className='object-contain'
                     />
                   )
                 }
