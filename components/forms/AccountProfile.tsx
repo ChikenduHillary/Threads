@@ -124,7 +124,7 @@ const onSubmit = async(values: z.infer<typeof UserValidation>) => {
                       alt='profile photo'
                       width={24}
                       height={24}
-                      className='object-contain'
+                      className='object-contain rounded-full'
                     />
                   )
                 }
